@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_send_many_offers_to_same_customer" model="ir.ui.view">
+            <field name="name">Send by Email</field>
+            <field name="model">sale.order.send.many.offers</field>
+            <field name="arch" type="xml">
+                <form string="Send many offers to the same customer">
+                    <separator colspan="4" string="Do you really want to send the offer(s) by email?" />
+                    <footer>
+                        <button name="send_offers_by_email" string="Send offer(s) by email" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_send_many_offers_to_same_customer" model="ir.actions.act_window">
+            <field name="name">Send by Email</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.send.many.offers</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_send_many_offers_to_same_customer"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+
+        <record model="ir.values" id="mass_invoice_email_sending">
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="name">Send by Email</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_send_many_offers_to_same_customer'))" />
+            <field name="key">action</field>
+            <field name="model">sale.order</field>
+        </record>
+    </data>
+</openerp>
