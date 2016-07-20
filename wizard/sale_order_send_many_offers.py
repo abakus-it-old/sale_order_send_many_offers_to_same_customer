@@ -10,11 +10,10 @@ class account_invoice_mass_mailing(osv.osv_memory):
         active_ids = context.get('active_ids', []) or []
 
         sale_order_obj = self.pool['sale.order']
-        email_template_obj = self.pool['email.template']
+        email_template_obj = self.pool['mail.template']
         mail_mail_obj = self.pool['mail.mail']
         ir_attachment_obj = self.pool['ir.attachment']
 
-        
         sale_order_references = []
         partner_id_tmp = sale_order_obj.browse(cr, uid, active_ids[0], context=context).partner_id.id
         
